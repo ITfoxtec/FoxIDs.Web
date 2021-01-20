@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30803.129
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxIDs.Web", "FoxIDs.Web\FoxIDs.Web.csproj", "{29C2E3E8-1CE3-4B34-B373-D7F22ADA0C57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxIDs.Web", "src\FoxIDs.Web\FoxIDs.Web.csproj", "{29C2E3E8-1CE3-4B34-B373-D7F22ADA0C57}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{98CD836E-06A8-4A08-B258-10CCE23777B9}"
 	ProjectSection(SolutionItems) = preProject
