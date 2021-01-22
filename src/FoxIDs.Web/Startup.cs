@@ -52,11 +52,23 @@ namespace FoxIDs.Web
                 app.UseHsts();
             }
 
+            app.UseSecurityHeaders(CurrentEnvironment);
+
             app.UseHttpsRedirection();
             app.UseStaticFilesCacheControl(CurrentEnvironment);
             app.UseProxyClientIpMiddleware();
 
             app.UseCookiePolicy();
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/w";
+                    await next();
+                }
+            });
 
             app.UseRouting();
 
