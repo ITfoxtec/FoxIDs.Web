@@ -1,11 +1,7 @@
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FoxIDs.Web
 {
@@ -13,14 +9,29 @@ namespace FoxIDs.Web
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .ConfigureKestrel(options => options.AddServerHeader = false)
+                .UseStartup<Startup>()
+                .ConfigureLogging((context, logging) =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    var instrumentationKey = context.Configuration.GetSection("ApplicationInsights:InstrumentationKey").Value;
+
+                    if (string.IsNullOrWhiteSpace(instrumentationKey))
+                    {
+                        return;
+                    }
+
+                    // When not in development, remove other loggers like console, debug, event source etc. and only use ApplicationInsights logging
+                    if (!context.HostingEnvironment.IsDevelopment())
+                    {
+                        logging.ClearProviders();
+                    }
+
+                    logging.AddApplicationInsights(instrumentationKey);
                 });
     }
 }

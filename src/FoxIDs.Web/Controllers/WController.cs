@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace FoxIDs.Web.Controllers
 {
-    public class HomeController : Controller
+    public class WController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<WController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public WController(ILogger<WController> logger)
         {
             _logger = logger;
         }
