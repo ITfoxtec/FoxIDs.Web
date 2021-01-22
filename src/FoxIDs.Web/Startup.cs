@@ -1,4 +1,5 @@
 using FoxIDs.Web.Infrastructure.Hosting;
+using FoxIDs.Web.Models.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +24,8 @@ namespace FoxIDs.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(options => { options.DeveloperMode = CurrentEnvironment.IsDevelopment(); });
+
+            var settings = services.BindConfig<Settings>(Configuration, nameof(Settings));
 
             services.Configure<CookiePolicyOptions>(options =>
             {
