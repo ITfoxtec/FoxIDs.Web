@@ -27,6 +27,8 @@ a {
 
 code {
     color: #212529 !important;
+    background-color: #efefef;
+    font-size: 85%;
 }
 
 /* Menu */
