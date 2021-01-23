@@ -22,9 +22,11 @@
   </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.8.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="ITfoxtec.Identity" Version="2.0.28" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
+    <PackageReference Include="Westwind.AspNetCore.Markdown" Version="3.5.0" />
   </ItemGroup>
 
 </Project>

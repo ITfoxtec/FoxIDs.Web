@@ -1,23 +1,11 @@
 ﻿using FoxIDs.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FoxIDs.Web.Controllers
 {
     public class WController : Controller
     {
-        private readonly ILogger<WController> _logger;
-
-        public WController(ILogger<WController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
             return View();

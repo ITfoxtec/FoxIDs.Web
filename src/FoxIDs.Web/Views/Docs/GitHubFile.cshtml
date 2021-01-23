@@ -1,0 +1,23 @@
+﻿@model GitHubFileViewModel
+
+<div class="row">
+    <div class="markdown-page col-sm-12 col-md-8 col-lg-9 align-self-start order-last col-print-12">
+        <markdown markdown="PageContent" />
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-3 align-self-start order-first hidden-print">
+        <blockquote>
+            <markdown markdown="Sidebar" />
+        </blockquote>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
+        });
+
+    </script>
+}

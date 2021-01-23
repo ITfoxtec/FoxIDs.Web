@@ -3,6 +3,7 @@
     "outputFileName": "wwwroot/css/site.min.css",
     "inputFiles": [
       "node_modules/bootstrap/dist/css/bootstrap.min.css",
+      "node_modules/highlightjs/styles/default.css",
       "wwwroot/css/site.css"
     ]
   },
@@ -11,6 +12,7 @@
     "inputFiles": [
       "node_modules/jquery/dist/jquery.min.js",
       "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "node_modules/highlightjs/highlight.pack.min.js",
       "wwwroot/js/site.js"
     ],
     "minify": {
@@ -23,6 +25,12 @@
     "outputFileName": "wwwroot/lib/bootstrap/dist/css/bootstrap.css",
     "inputFiles": [
       "node_modules/bootstrap/dist/css/bootstrap.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+    "inputFiles": [
+      "node_modules/bootstrap/dist/css/bootstrap.css.map"
     ]
   },
   {
@@ -59,6 +67,18 @@
     "outputFileName": "wwwroot/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js",
     "inputFiles": [
       "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/highlightjs/default.css",
+    "inputFiles": [
+      "node_modules/highlightjs/styles/default.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/highlightjs/highlight.pack.js",
+    "inputFiles": [
+      "node_modules/highlightjs/highlight.pack.js"
     ]
   }
 ]

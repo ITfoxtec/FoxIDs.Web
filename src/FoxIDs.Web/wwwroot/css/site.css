@@ -43,10 +43,6 @@ code {
         padding: 0.5rem;
     }
 
-    .navbar .navbar-brand {
-        /*margin-top: 1.35rem !important;*/
-    }
-
     .navbar .navbar-toggler {
         margin-top: 1.35rem !important;
     }
@@ -77,19 +73,19 @@ code {
 
         .navbar .navbar-nav > li > a:hover,
         .navbar .navbar-nav > li > a:focus {
-            color: #f78f1e !important;
+            color: #d87513 !important;
         }
 
 .navbar .navbar-brand {
     font-size: 4.2rem;
     font-weight: 300;
     line-height: 1.2;
-    color: #fc7e01;
+    color: #fc7e01 !important;
 }
 
     .navbar .navbar-brand:hover,
     .navbar-brand:focus {
-        color: #f78f1e !important;
+        color: #fc7e01 !important;
     }
 
 .navbar-cookie {
@@ -109,13 +105,13 @@ code {
         padding-top: 1.35rem;
     }
 }
-
+/*
 .brand-content-text {
     font-size: 4.5rem;
     font-weight: 300;
     line-height: 1.2;
     color: #fc7e01;
-}
+}*/
 
 .footer-container {
     position: absolute;
@@ -179,4 +175,98 @@ code {
 .btn:focus, .btn.focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(223, 137, 53, 0.25);
+}
+
+.markdown-page img {
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+blockquote {
+    border-left: 6px solid #f78f1e;
+    padding-left: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 0rem;
+    background-color: #e7ebef;
+}
+
+    blockquote h1 {
+        margin-top: 0;
+        margin-bottom: .8rem;
+        font-weight: 300;
+        font-size: 1.75rem;
+    }
+
+    blockquote ul {
+        padding: 0 !important;
+        padding: 0 0 0.5rem 0;
+        margin: -0.5rem 0 0 0;
+    }
+
+        blockquote ul li {
+            list-style: none !important;
+            padding: 0.2rem 0 0.2rem 0rem !important;
+        }
+
+            blockquote ul li ul li {
+                padding: 0.2rem 0 0.2rem 0.8rem !important;
+            }
+
+                blockquote ul li ul li:last-child {
+                    padding: 0.2rem 0 0rem 0.8rem !important;
+                }
+
+    blockquote li:before {
+        display: none;
+    }
+
+.markdown-page blockquote {
+    background-color: transparent;
+    padding-left: 1.2rem;
+}
+
+    .markdown-page blockquote p {
+        margin-bottom: 0;
+    }
+
+
+/* Print */
+@media print {
+    @page {
+        margin-top: 1.6cm;
+        margin-bottom: 1.6cm;
+        margin-left: 1.1cm;
+        margin-right: 1.1cm;
+    }
+
+    .hidden-print {
+        display: none;
+    }
+
+    .footer {
+        display: none;
+    }
+
+    .col-print-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    a[href*='//']:after {
+        content: " (" attr(href) ")";
+        font-size: small;
+    }
+
+    blockquote {
+        border-top: none;
+        border-right: none;
+        border-bottom: none;
+    }
+
+    .print-page-brake {
+        page-break-before: always;
+    }
 }

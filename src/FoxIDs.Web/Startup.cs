@@ -1,12 +1,12 @@
 using FoxIDs.Web.Infrastructure.Hosting;
+using FoxIDs.Web.Infrastructure.Transformers;
 using FoxIDs.Web.Models.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
+using Westwind.AspNetCore.Markdown;
 
 namespace FoxIDs.Web
 {
@@ -27,20 +27,11 @@ namespace FoxIDs.Web
 
             var settings = services.BindConfig<Settings>(Configuration, nameof(Settings));
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            services.AddInfrastructure(settings, CurrentEnvironment);
+            services.AddLogic(settings);
 
-            services.AddHsts(options =>
-            {
-                options.IncludeSubDomains = true;
-                options.MaxAge = TimeSpan.FromDays(365);
-            });
-
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddApplicationPart(typeof(MarkdownPageProcessorMiddleware).Assembly);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,13 +42,15 @@ namespace FoxIDs.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler($"/{Constants.Route.DefaultSiteController}/Error");
                 app.UseHsts();
             }
 
             app.UseSecurityHeaders(CurrentEnvironment);
-
             app.UseHttpsRedirection();
+
+            app.UseMarkdown();
+
             app.UseStaticFilesCacheControl(CurrentEnvironment);
             app.UseProxyClientIpMiddleware();
 
@@ -68,20 +61,23 @@ namespace FoxIDs.Web
                 await next();
                 if (context.Response.StatusCode == 404)
                 {
-                    context.Request.Path = "/w";
+                    context.Request.Path = $"/{Constants.Route.DefaultSiteController}";
                     await next();
                 }
             });
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=W}/{action=Index}/{id?}");
+                    pattern: $"{{controller={Constants.Route.DefaultSiteController}}}/{{action={Constants.Route.DefaultSiteAction}}}/{{id?}}");
+
+                endpoints.MapDynamicControllerRoute<GitHubFileRouteTransformer>($"docs/{{**{Constants.Route.RouteTransformerPathKey}}}");
+                endpoints.MapDynamicControllerRoute<SitemapTransformer>("sitemap.xml");
+                endpoints.MapDynamicControllerRoute<RobotsTransformer>("robots.txt");
+                endpoints.MapDynamicControllerRoute<SiteRouteTransformer>($"{{**{Constants.Route.RouteTransformerPathKey}}}");
             });
         }
     }
