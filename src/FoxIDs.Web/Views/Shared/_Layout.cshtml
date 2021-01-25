@@ -29,34 +29,25 @@
 </head>
 <body>
     <header>
-        @*@if (ViewData.ContainsKey("MainPage"))
-        {
-            <div class="container brand-container">
-                <span class="brand-content-text">FoxIDs</span>
+        <nav class="navbar navbar-expand-md navbar-light bg-transparent">
+            <div class="container @(ViewData.ContainsKey("MainPage") ? "brand-container" : string.Empty)">
+                <a class="navbar-brand" asp-area="" asp-controller="W" asp-action="Index">FoxIDs</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="docs" asp-action="index">Documentation</a>
+                            </li>
+                            @* <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li> *@
+                        </ul>
+                    </div>
             </div>
-        }
-        else
-        {*@
-            <nav class="navbar navbar-expand-md navbar-light bg-transparent">
-                <div class="container @(ViewData.ContainsKey("MainPage") ? "brand-container" : string.Empty)">
-                    <a class="navbar-brand" asp-area="" asp-controller="W" asp-action="Index">FoxIDs</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="docs" asp-action="index">Documentation</a>
-                                </li>
-                               @* <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li> *@
-                            </ul>
-                        </div>
-                </div>
-            </nav>
-        @*}*@
+        </nav>
     </header>
 
     <partial name="_CookieConsentPartial" />
