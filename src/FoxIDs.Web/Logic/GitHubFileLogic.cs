@@ -77,7 +77,7 @@ namespace FoxIDs.Web.Logic
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError($"Upload Github files failed, repositoryUri '{PagesApiFileEndpoint}'. {ex}");
+                    logger.LogError($"Upload GitHub files failed, repositoryUri '{PagesApiFileEndpoint}'. {ex}");
                 }
             }
         }
