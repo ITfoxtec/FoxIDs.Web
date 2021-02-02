@@ -21,9 +21,8 @@ namespace FoxIDs.Web.Logic
     // Markdown to HTML component.
     // https://github.com/RickStrahl/Westwind.AspNetCore.Markdown
 
-    public class GitHubFileLogic : IFoxIDsGitHubFileLogic
+    public class GitHubFileLogic 
     {
-        private readonly CancellationTokenSource cleanUpCancellationTokenSource;
         private readonly ILogger<GitHubFileLogic> logger;
         private readonly Settings settings;
         private readonly IHttpClientFactory httpClientFactory;
@@ -44,8 +43,6 @@ namespace FoxIDs.Web.Logic
             {
                 containerClient = blobServiceClient.CreateBlobContainer(containerName);
             }
-            cleanUpCancellationTokenSource = new CancellationTokenSource();
-            Task.Factory.StartNew(async () => { await HandleUploadFilesAsync(); }, cleanUpCancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
         private string PagesApiInfoEndpoint => $"https://api.github.com/repos/{gitHubSettings.Repository}/{gitHubSettings.Project}/contents/{gitHubSettings.Folder}?ref={gitHubSettings.Branch}";
@@ -53,18 +50,22 @@ namespace FoxIDs.Web.Logic
 
         private string PagesApiFileEndpoint => $"https://api.github.com/repos/{gitHubSettings.Repository}/{gitHubSettings.Project}/contents/{gitHubSettings.Folder}/[file]?ref=development";
         private string ImagesApiFileEndpoint => $"https://api.github.com/repos/{gitHubSettings.Repository}/{gitHubSettings.Project}/contents/{gitHubSettings.Folder}/{Constants.GithubImageFolder}/[file]?ref=development";
-        
-        private async Task HandleUploadFilesAsync()
+
+        public async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            await HandleUploadFilesAsync(stoppingToken);
+        }
+
+        private async Task HandleUploadFilesAsync(CancellationToken stoppingToken)
         {
             while (true)
             {
                 try
                 {
-                    var ct = cleanUpCancellationTokenSource.Token;
-                    ct.ThrowIfCancellationRequested();
+                    stoppingToken.ThrowIfCancellationRequested();
                     await UpdateFilesAsync();
-                    ct.ThrowIfCancellationRequested();
-                    await Task.Delay(new TimeSpan(24, 0, 0), ct);
+                    stoppingToken.ThrowIfCancellationRequested();
+                    await Task.Delay(new TimeSpan(24, 0, 0), stoppingToken);
                 }
                 catch (OperationCanceledException)
                 {
@@ -76,7 +77,7 @@ namespace FoxIDs.Web.Logic
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError($"Upload github files failed, repositoryUri '{PagesApiFileEndpoint}'. {ex}");
+                    logger.LogError($"Upload Github files failed, repositoryUri '{PagesApiFileEndpoint}'. {ex}");
                 }
             }
         }

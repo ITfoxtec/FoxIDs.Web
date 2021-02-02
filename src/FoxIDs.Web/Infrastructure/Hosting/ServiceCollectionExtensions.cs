@@ -6,9 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Net.Http;
 using Westwind.AspNetCore.Markdown;
 
 namespace FoxIDs.Web.Infrastructure.Hosting
@@ -17,10 +15,7 @@ namespace FoxIDs.Web.Infrastructure.Hosting
     {
         public static IServiceCollection AddLogic(this IServiceCollection services, Settings settings)
         {
-            services.AddSingleton<IFoxIDsGitHubFileLogic>((serviceProvider) =>
-            {
-                return new GitHubFileLogic(serviceProvider.GetService<ILogger<GitHubFileLogic>>(), settings, serviceProvider.GetService<IHttpClientFactory>());
-            });
+            services.AddSingleton<GitHubFileLogic>();
 
             return services;
         }
@@ -41,6 +36,8 @@ namespace FoxIDs.Web.Infrastructure.Hosting
             });
 
             services.AddMarkdown();
+
+            services.AddHostedService<GitHubFileBackgroundService>();
 
             services.AddScoped<GitHubFileRouteTransformer>();
             services.AddScoped<SitemapTransformer>();

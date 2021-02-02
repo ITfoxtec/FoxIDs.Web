@@ -13,10 +13,10 @@ namespace FoxIDs.Web.Controllers
         private readonly Settings settings;
         private readonly GitHubFileLogic gitHubFileLogic;
 
-        public SitemapController(Settings settings, IFoxIDsGitHubFileLogic foxIDsGithubFileLogic)
+        public SitemapController(Settings settings, GitHubFileLogic gitHubFileLogic)
         {
             this.settings = settings;
-            gitHubFileLogic = foxIDsGithubFileLogic as GitHubFileLogic;
+            this.gitHubFileLogic = gitHubFileLogic;
         }
 
         public async Task<ActionResult> Index()

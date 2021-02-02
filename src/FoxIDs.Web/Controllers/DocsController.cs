@@ -17,11 +17,11 @@ namespace ITfoxtecWebCore.Controllers
         private readonly Settings settings;
         private readonly GitHubFileLogic gitHubFileLogic;
 
-        public DocsController(ILogger<DocsController> logger, Settings settings, IFoxIDsGitHubFileLogic foxIDsGitHubFileLogic)
+        public DocsController(ILogger<DocsController> logger, Settings settings, GitHubFileLogic gitHubFileLogic)
         {
             this.logger = logger;
             this.settings = settings;
-            gitHubFileLogic = foxIDsGitHubFileLogic as GitHubFileLogic;
+            this.gitHubFileLogic = gitHubFileLogic;
         }
 
         public async Task<ActionResult> Index()
