@@ -48,8 +48,8 @@ namespace FoxIDs.Web.Logic
         private string PagesApiInfoEndpoint => $"https://api.github.com/repos/{gitHubSettings.Repository}/{gitHubSettings.Project}/contents/{gitHubSettings.Folder}?ref={gitHubSettings.Branch}";
         private string ImagesApiInfoEndpoint => $"https://api.github.com/repos/{gitHubSettings.Repository}/{gitHubSettings.Project}/contents/{gitHubSettings.Folder}/{Constants.GithubImageFolder}?ref={gitHubSettings.Branch}";
 
-        private string PagesApiFileEndpoint => $"https://api.github.com/repos/{gitHubSettings.Repository}/{gitHubSettings.Project}/contents/{gitHubSettings.Folder}/[file]?ref=development";
-        private string ImagesApiFileEndpoint => $"https://api.github.com/repos/{gitHubSettings.Repository}/{gitHubSettings.Project}/contents/{gitHubSettings.Folder}/{Constants.GithubImageFolder}/[file]?ref=development";
+        private string PagesApiFileEndpoint => $"https://api.github.com/repos/{gitHubSettings.Repository}/{gitHubSettings.Project}/contents/{gitHubSettings.Folder}/[file]?ref={gitHubSettings.Branch}";
+        private string ImagesApiFileEndpoint => $"https://api.github.com/repos/{gitHubSettings.Repository}/{gitHubSettings.Project}/contents/{gitHubSettings.Folder}/{Constants.GithubImageFolder}/[file]?ref={gitHubSettings.Branch}";
 
         public async Task ExecuteAsync(CancellationToken stoppingToken)
         {
