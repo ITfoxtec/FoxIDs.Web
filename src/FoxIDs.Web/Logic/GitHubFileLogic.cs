@@ -37,7 +37,7 @@ namespace FoxIDs.Web.Logic
             this.httpClientFactory = httpClientFactory;
     
             var blobServiceClient = new BlobServiceClient(settings.BlobConnectionString);
-            var containerName = $"{settings.BaseSitePath.TrimEnd('/').Substring(8).Replace('.', 'x').Replace(':', 'x')}githubfiles{settings.GitHubSiteFolder.Trim('/')}".ToLower();
+            var containerName = $"{settings.BaseSitePath.TrimEnd('/').Substring(8).Replace('.', '-').Replace(':', '-')}-githubfiles-{settings.FoxIDsGitHub.Branch}-{settings.GitHubSiteFolder.Trim('/')}".ToLower();
             containerClient = blobServiceClient.GetBlobContainerClient(containerName);
             if(!containerClient.Exists())
             {
