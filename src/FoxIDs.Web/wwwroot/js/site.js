@@ -1,4 +1,9 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
+    $('.markdown-page h1, .markdown-page h2, .markdown-page h3, .markdown-page h4').each(function () {
 
-// Write your JavaScript code.
+        var id = $(this).attr('id');
+        $(this).addClass('anchor-heading');
+        var anchor = $('<a class="anchor-link" href="#' + id + '">#</a>');
+        $(this).append(anchor);
+    });
+});

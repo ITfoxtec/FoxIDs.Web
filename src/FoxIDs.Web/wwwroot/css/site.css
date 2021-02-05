@@ -95,7 +95,7 @@ code {
 }
 
 .content-container {
-    padding: 2.5rem 0.94rem 5rem 0.94rem;
+    padding: 2.5rem 1rem 5rem 1rem;
 }
 
 .brand-container {
@@ -190,6 +190,32 @@ code {
     box-shadow: 0 0 0 0.2rem rgba(223, 137, 53, 0.25);
 }
 
+.markdown-page h1, .markdown-page h2, .markdown-page h3, .markdown-page h4, .markdown-page h5, .markdown-page h6 {
+    font-weight: 600;
+}
+
+.markdown-page h2, .markdown-page h3, .markdown-page h4, .markdown-page h5, .markdown-page h6 {
+    margin-top: 1.8em;
+}
+
+.markdown-page h1 {
+    font-size: 2.25em;
+    line-height: 1.1;
+    letter-spacing: -.03em;
+}
+
+.markdown-page h2 {
+    font-size: 1.5em;
+}
+
+.markdown-page h3 {
+    font-size: 1.25em;
+}
+
+.markdown-page h4 {
+    font-size: 1em;
+}
+
 .markdown-page img {
     max-width: 100%;
     display: block;
@@ -245,6 +271,21 @@ blockquote {
         margin-bottom: 0;
     }
 
+.markdown-page .anchor-heading .anchor-link {
+    display: inline-block;
+    padding-left: .25rem;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity ease-in-out .25s;
+}
+
+    .markdown-page .anchor-heading .anchor-link:hover {
+        opacity: 1 !important;
+    }
+
+    .markdown-page .anchor-heading:hover .anchor-link {
+        opacity: .5;
+    }
 
 /* Print */
 @media print {
