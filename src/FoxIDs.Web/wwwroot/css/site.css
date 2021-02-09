@@ -190,33 +190,33 @@ code {
     box-shadow: 0 0 0 0.2rem rgba(223, 137, 53, 0.25);
 }
 
-.markdown-page h1, .markdown-page h2, .markdown-page h3, .markdown-page h4, .markdown-page h5, .markdown-page h6 {
+.content-page h1, .content-page h2, .content-page h3, .content-page h4, .content-page h5, .content-page h6 {
     font-weight: 600;
 }
 
-.markdown-page h2, .markdown-page h3, .markdown-page h4, .markdown-page h5, .markdown-page h6 {
+.content-page h2, .content-page h3, .content-page h4, .content-page h5, .content-page h6 {
     margin-top: 1.8em;
 }
 
-.markdown-page h1 {
+.content-page h1 {
     font-size: 2.25em;
     line-height: 1.1;
     letter-spacing: -.03em;
 }
 
-.markdown-page h2 {
+.content-page h2 {
     font-size: 1.5em;
 }
 
-.markdown-page h3 {
+.content-page h3 {
     font-size: 1.25em;
 }
 
-.markdown-page h4 {
+.content-page h4 {
     font-size: 1em;
 }
 
-.markdown-page img {
+.content-page img {
     max-width: 100%;
     display: block;
     margin-left: auto;
@@ -262,16 +262,16 @@ blockquote {
         display: none;
     }
 
-.markdown-page blockquote {
+.content-page blockquote {
     background-color: transparent;
     padding-left: 1.2rem;
 }
 
-    .markdown-page blockquote p {
+    .content-page blockquote p {
         margin-bottom: 0;
     }
 
-.markdown-page .anchor-heading .anchor-link {
+.content-page .anchor-heading .anchor-link {
     display: inline-block;
     padding-left: .25rem;
     text-decoration: none;
@@ -279,11 +279,11 @@ blockquote {
     transition: opacity ease-in-out .25s;
 }
 
-    .markdown-page .anchor-heading .anchor-link:hover {
+    .content-page .anchor-heading .anchor-link:hover {
         opacity: 1 !important;
     }
 
-    .markdown-page .anchor-heading:hover .anchor-link {
+    .content-page .anchor-heading:hover .anchor-link {
         opacity: .5;
     }
 
