@@ -46,6 +46,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+    "inputFiles": [
+      "node_modules/bootstrap/dist/js/bootstrap.bundle.js.map"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
     "inputFiles": [
       "node_modules/jquery-validation/dist/jquery.validate.js"
