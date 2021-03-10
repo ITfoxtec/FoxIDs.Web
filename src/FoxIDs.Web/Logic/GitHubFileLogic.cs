@@ -35,13 +35,20 @@ namespace FoxIDs.Web.Logic
             this.settings = settings;
             gitHubSettings = settings.FoxIDsGitHub;
             this.httpClientFactory = httpClientFactory;
-    
+
             var blobServiceClient = new BlobServiceClient(settings.BlobConnectionString);
             var containerName = $"{settings.BaseSitePath.TrimEnd('/').Substring(8).Replace("azurewebsites.net", string.Empty).Replace('.', '-').Replace(':', '-')}-github-{settings.FoxIDsGitHub.Branch}-{settings.GitHubSiteFolder.Trim('/')}".ToLower();
-            containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-            if(!containerClient.Exists())
+            try
             {
-                containerClient = blobServiceClient.CreateBlobContainer(containerName);
+                containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+                if (!containerClient.Exists())
+                {
+                    containerClient = blobServiceClient.CreateBlobContainer(containerName);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failing blob container name '{containerName}'.", ex);
             }
         }
 
