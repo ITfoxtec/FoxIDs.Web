@@ -37,7 +37,7 @@ namespace FoxIDs.Web.Logic
             this.httpClientFactory = httpClientFactory;
 
             var blobServiceClient = new BlobServiceClient(settings.BlobConnectionString);
-            var containerName = $"{settings.BaseSitePath.TrimEnd('/').Substring(8).Replace(".azurewebsites.net", string.Empty).Replace('.', '-').Replace(':', '-').Replace("--", "-")}-github-{settings.FoxIDsGitHub.Branch}-{settings.GitHubSiteFolder.Trim('/')}".ToLower();
+            var containerName = $"{MaxLengthSubString(settings.BaseSitePath.TrimEnd('/').Substring(8).Replace(".azurewebsites.net", string.Empty).Replace('.', '-').Replace(':', '-').Replace("--", "-"), 30)}-github-{settings.FoxIDsGitHub.Branch}-{settings.GitHubSiteFolder.Trim('/')}".ToLower();
             try
             {
                 containerClient = blobServiceClient.GetBlobContainerClient(containerName);
@@ -49,6 +49,18 @@ namespace FoxIDs.Web.Logic
             catch (Exception ex)
             {
                 throw new Exception($"Failing blob container name '{containerName}'.", ex);
+            }
+        }
+
+        private string MaxLengthSubString(string value, int maxLength)
+        {
+            if (value.Length > maxLength)
+            {
+                return value.Substring(0, maxLength);
+            }
+            else
+            {
+                return value;
             }
         }
 
