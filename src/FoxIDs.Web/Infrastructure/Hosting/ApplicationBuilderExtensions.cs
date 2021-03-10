@@ -65,7 +65,7 @@ namespace FoxIDs.Web.Infrastructure.Hosting
             yield return "default-src 'self';";
             yield return "connect-src 'self' https://dc.services.visualstudio.com/v2/track https://www.google-analytics.com/r/collect https://www.google-analytics.com/j/collect;";
             //yield return "font-src 'self';";
-            yield return "img-src 'self' data: 'unsafe-inline' https://www.google-analytics.com/r/collect https://aka.ms/deploytoazurebutton https://raw.githubusercontent.com/Azure/azure-quickstart-templates;";
+            yield return "img-src 'self' data: 'unsafe-inline' https://www.google-analytics.com/collect https://www.google-analytics.com/r/collect https://aka.ms/deploytoazurebutton https://raw.githubusercontent.com/Azure/azure-quickstart-templates;";
             //yield return "img-src 'self' data: https://www.google-analytics.com/r/collect;";
             yield return "script-src 'self' 'unsafe-inline' https://az416426.vo.msecnd.net https://www.google-analytics.com https://ajax.googleapis.com;";
             yield return "style-src 'self' 'unsafe-inline';";
