@@ -37,11 +37,23 @@ namespace FoxIDs.Web.Logic
             this.httpClientFactory = httpClientFactory;
     
             var blobServiceClient = new BlobServiceClient(settings.BlobConnectionString);
-            var containerName = $"{settings.BaseSitePath.TrimEnd('/').Substring(8).Replace('.', '-').Replace(':', '-')}-githubfiles-{settings.FoxIDsGitHub.Branch}-{settings.GitHubSiteFolder.Trim('/')}".ToLower();
+            var containerName = $"{MaxLengthSubString(settings.BaseSitePath.TrimEnd('/').Substring(8).Replace("azurewebsites.net", "").Replace('.', '-').Replace(':', '-'), 30)}-github-{MaxLengthSubString(settings.FoxIDsGitHub.Branch, 4)}-{settings.GitHubSiteFolder.Trim('/')}".ToLower();
             containerClient = blobServiceClient.GetBlobContainerClient(containerName);
             if(!containerClient.Exists())
             {
                 containerClient = blobServiceClient.CreateBlobContainer(containerName);
+            }
+        }
+
+        private string MaxLengthSubString(string value, int maxLength)
+        {
+            if(value.Length > maxLength)
+            {
+                return value.Substring(0, 4);
+            }
+            else
+            {
+                return value;
             }
         }
 
