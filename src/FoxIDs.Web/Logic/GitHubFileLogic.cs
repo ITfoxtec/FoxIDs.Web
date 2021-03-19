@@ -304,26 +304,33 @@ namespace FoxIDs.Web.Logic
             {
                 foreach (var inline in paragraph.Inline)
                 {
-                    if (inline is LinkInline link)
-                    {
-                        if (link.Url.Contains("://"))
-                            continue;
+                    markdown = FixupInline(markdown, baseUri, inline);
+                }
+            }
 
-                        if (link.Url.StartsWith("#"))
-                            continue;
+            return markdown;
+        }
 
-                        var url = link.Url;
-                        url = url.Replace("index.md", "").Replace(".md", "");
+        private static string FixupInline(string markdown, Uri baseUri, Inline inline)
+        {
+            if (inline is LinkInline link)
+            {
+                if (!link.Url.Contains("://") && !link.Url.StartsWith("#"))
+                {
+                    var url = link.Url;
+                    url = url.Replace("index.md", "").Replace(".md", "");
 
-                        // Fix up the relative URL into an absolute URL
-                        var newUrl = new Uri(baseUri, url).ToString();
+                    // Fix up the relative URL into an absolute URL
+                    var newUrl = new Uri(baseUri, url).ToString();
 
-                        markdown = markdown.Replace("](" + link.Url + ")", "](" + newUrl + ")");
-                    }
-                    else 
-                    {
-
-                    }
+                    markdown = markdown.Replace("](" + link.Url + ")", "](" + newUrl + ")");
+                }
+            }
+            else if(inline is EmphasisInline emphasisInline)
+            {
+                foreach(var emphasisItem in emphasisInline)
+                {
+                    markdown = FixupInline(markdown, baseUri, emphasisItem);
                 }
             }
 
