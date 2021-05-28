@@ -241,8 +241,7 @@ blockquote {
 
     blockquote ul {
         padding: 0 !important;
-        padding: 0 0 0.5rem 0;
-        margin: -0.5rem 0 0 0;
+        margin: 0 !important;
     }
 
         blockquote ul li {
@@ -251,16 +250,20 @@ blockquote {
         }
 
             blockquote ul li ul li {
-                padding: 0.2rem 0 0.2rem 0.8rem !important;
+                padding: 0.2rem 0 0.2rem 1.1rem !important;
             }
 
                 blockquote ul li ul li:last-child {
-                    padding: 0.2rem 0 0rem 0.8rem !important;
+                    padding: 0.2rem 0 0rem 1.1rem !important;
                 }
 
     blockquote li:before {
         display: none;
     }
+
+.content-menu blockquote {
+    font-size: 0.9rem;
+}
 
 .content-page blockquote {
     background-color: transparent;
