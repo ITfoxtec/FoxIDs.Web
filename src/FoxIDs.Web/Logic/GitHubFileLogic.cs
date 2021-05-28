@@ -103,6 +103,13 @@ namespace FoxIDs.Web.Logic
 
         public async Task UpdateFilesAsync()
         {
+#if DEBUG
+            if (settings.FoxIDsGitHub.LoadFiles)
+            {
+                return;
+            }
+#endif
+
             var blobNames = new List<string>();
             blobNames.AddRange(await UploadFilesAsync(PagesApiInfoEndpoint, PagesApiFileEndpoint));
             blobNames.AddRange(await UploadFilesAsync(ImagesApiInfoEndpoint, ImagesApiFileEndpoint, isImages: true));
@@ -199,6 +206,12 @@ namespace FoxIDs.Web.Logic
 
         public async Task<Stream> LoadImageAsync(string image)
         {
+#if DEBUG
+            if (settings.FoxIDsGitHub.LoadFiles)
+            {
+                return new FileStream(Path.Combine(settings.FoxIDsGitHub.DocsFileDirectory, image), FileMode.Open);
+            }
+#endif
             var blobClient = containerClient.GetBlobClient(image);
             BlobDownloadInfo download = await blobClient.DownloadAsync();
             return download.Content;
@@ -206,6 +219,14 @@ namespace FoxIDs.Web.Logic
 
         public async Task<string> LoadFileAsync(string page)
         {
+#if DEBUG
+            if (settings.FoxIDsGitHub.LoadFiles)
+            {
+                var fileContent = await File.ReadAllTextAsync(Path.Combine(settings.FoxIDsGitHub.DocsFileDirectory, page));
+                var pageContent = FixupMarkdown(fileContent);
+                return pageContent;
+            }
+#endif
             var blobClient = containerClient.GetBlobClient(page);
             BlobDownloadInfo download = await blobClient.DownloadAsync();
             using var reader = new StreamReader(download.Content, Encoding.UTF8);
