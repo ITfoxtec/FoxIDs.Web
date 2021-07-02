@@ -28,8 +28,8 @@ namespace ITfoxtecWebCore.Controllers
         {
             if (HttpContext.Items.ContainsKey(Constants.Route.GithubImage))
             {
-                var pageItem = HttpContext.Items[Constants.Route.GithubImage] as string;
-                var image = await gitHubFileLogic.LoadImageAsync(pageItem.ToLower());
+                var pageItem = (HttpContext.Items[Constants.Route.GithubImage] as string).ToLower();
+                var image = await gitHubFileLogic.LoadImageAsync(pageItem);
                 return File(image, GetImageMimeType(pageItem));
             }
 

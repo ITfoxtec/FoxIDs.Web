@@ -21,11 +21,8 @@ namespace FoxIDs.Web.Logic
     // Markdown to HTML component.
     // https://github.com/RickStrahl/Westwind.AspNetCore.Markdown
 
-    public class GitHubFileLogic 
+    public class GitHubFileLogic
     {
-#if DEBUG
-        private static readonly object locker = new object();
-#endif
         private readonly ILogger<GitHubFileLogic> logger;
         private readonly Settings settings;
         private readonly IHttpClientFactory httpClientFactory;
@@ -135,7 +132,7 @@ namespace FoxIDs.Web.Logic
                     var itemResponse = await httpClient.GetAsync(new Uri(fileApiEndpoint.Replace("[file]", fileInfo.Name)));
                     var itemFile = await itemResponse.ToObjectAsync<GitHubFile>();
                     byte[] itemBytes;
-                    if(isImages)
+                    if (isImages)
                     {
                         itemBytes = Convert.FromBase64String(itemFile.Content);
                     }
@@ -161,7 +158,7 @@ namespace FoxIDs.Web.Logic
                 }
             }
 
-            if(!isImages)
+            if (!isImages)
             {
                 var sitemapBlobClient = containerClient.GetBlobClient(Constants.GithubSitePages);
                 var pagesBytes = Encoding.UTF8.GetBytes(string.Join(',', pages));
@@ -190,7 +187,7 @@ namespace FoxIDs.Web.Logic
         private async Task DeleteOldBlobsAsync(List<string> blobNames)
         {
             var currentBlobs = containerClient.GetBlobsAsync();
-            await foreach(var cb in currentBlobs)
+            await foreach (var cb in currentBlobs)
             {
                 if (!Constants.GithubSitePages.Equals(cb.Name, StringComparison.OrdinalIgnoreCase) && !blobNames.Where(bn => bn.Equals(cb.Name, StringComparison.OrdinalIgnoreCase)).Any())
                 {
@@ -212,10 +209,7 @@ namespace FoxIDs.Web.Logic
 #if DEBUG
             if (settings.FoxIDsGitHub.LoadFiles)
             {
-                lock (locker)
-                {
-                    return new FileStream(Path.Combine(settings.FoxIDsGitHub.DocsFileDirectory, image), FileMode.Open, FileAccess.Read);
-                }
+                return new FileStream(Path.Combine(settings.FoxIDsGitHub.DocsFileDirectory, image), FileMode.Open, FileAccess.Read);
             }
 #endif
             var blobClient = containerClient.GetBlobClient(image);
@@ -291,7 +285,7 @@ namespace FoxIDs.Web.Logic
             if (item is QuoteBlock quoteBlock)
             {
                 foreach (var block in quoteBlock)
-                {     
+                {
                     markdown = FixupParagraph(markdown, baseUri, block);
                 }
             }
@@ -310,7 +304,7 @@ namespace FoxIDs.Web.Logic
 
                     foreach (var subItem in itemBlock)
                     {
-                        if(subItem is ListBlock)
+                        if (subItem is ListBlock)
                         {
                             markdown = FixupList(markdown, baseUri, subItem);
                         }
@@ -353,9 +347,9 @@ namespace FoxIDs.Web.Logic
                     markdown = markdown.Replace("](" + link.Url + ")", "](" + newUrl + ")");
                 }
             }
-            else if(inline is EmphasisInline emphasisInline)
+            else if (inline is EmphasisInline emphasisInline)
             {
-                foreach(var emphasisItem in emphasisInline)
+                foreach (var emphasisItem in emphasisInline)
                 {
                     markdown = FixupInline(markdown, baseUri, emphasisItem);
                 }
