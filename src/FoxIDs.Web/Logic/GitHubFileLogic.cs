@@ -23,6 +23,9 @@ namespace FoxIDs.Web.Logic
 
     public class GitHubFileLogic 
     {
+#if DEBUG
+        private static readonly object locker = new object();
+#endif
         private readonly ILogger<GitHubFileLogic> logger;
         private readonly Settings settings;
         private readonly IHttpClientFactory httpClientFactory;
@@ -209,7 +212,10 @@ namespace FoxIDs.Web.Logic
 #if DEBUG
             if (settings.FoxIDsGitHub.LoadFiles)
             {
-                return new FileStream(Path.Combine(settings.FoxIDsGitHub.DocsFileDirectory, image), FileMode.Open);
+                lock (locker)
+                {
+                    return new FileStream(Path.Combine(settings.FoxIDsGitHub.DocsFileDirectory, image), FileMode.Open, FileAccess.Read);
+                }
             }
 #endif
             var blobClient = containerClient.GetBlobClient(image);
